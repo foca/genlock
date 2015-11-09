@@ -22,11 +22,11 @@ and `Gemfile.lock` files available for whatever tools that require them.
 
 ## Installation
 
-Just donwload `genlock`, make it executable, and put it somewhere in your PATH:
+Clone the repository, then run `make install`. You can run `./configure --prefix
+<prefix>` if you want to change the install location (by default `/usr/local`).
 
-    wget https://raw.githubusercontent.com/foca/genlock/master/bin/genlock
-    mv ./genlock /usr/local/bin
-    chmod +x /usr/local/bin/genlock
+...Or you can download the binary and drop it in your PATH, really. No need for
+anything fancy :)
 
 ## License
 
