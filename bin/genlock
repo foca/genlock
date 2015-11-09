@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require "open-uri"
+require "erb"
+
+SPECS = Hash[Gem::Specification.latest_specs.map { |spec| [spec.name, spec] }]
+
+def all_deps(name)
+  deps = SPECS[name].runtime_dependencies
+  [*deps, *deps.map { |d| all_deps(d.name) }]
+end
+
+gemfile = ARGF.read.split("\n")
+user = Hash[gemfile.map { |line| line.split(/ -v |:/) }]
+
+dep_names = (user.keys + user.keys.map { |name| all_deps(name) }.flatten.map { |d| d.name }).uniq
+deps = Marshal.load(
+  open("https://rubygems.org/api/v1/dependencies?gems=#{dep_names.join(",")}")
+).select { |dep|
+  dep[:number] == SPECS[dep[:name]].version.to_s && dep[:platform] == RUBY_ENGINE
+}
+
+template = <<-EOT
+GEM
+  remote: https://rubygems.org/
+  specs:<% deps.sort_by { |d| d[:name] }.each do |dep| %>
+    <%= dep[:name] %> (<%= dep[:number] %>)<% dep[:dependencies].sort_by { |n, _| n }.each do |name, version| %>
+      <%= name %><% if version != ">= 0" %> (<%= version %>)<% end %><% end %><% end %>
+
+PLATFORMS
+  <%= RUBY_ENGINE %>
+
+DEPENDENCIES<% user.sort_by { |n, _| n }.each do |name, version| %>
+  <%= name %> (= <%= version %>)<% end %>
+EOT
+
+puts ERB.new(template).result(binding)

@@ -1,0 +1,15 @@
+cuba -v 3.4.0
+puma -v 2.12.3
+sequel -v 4.22.0
+pg -v 0.18.2
+omniauth-github -v 1.1.2
+encrypted_cookie -v 0.0.4
+shield -v 2.1.1
+tilt -v 2.0.1
+scrivener -v 1.0.0
+redic -v 1.5.0
+disc -v 0.0.22
+nobi -v 0.0.1
+mandrill-api -v 1.0.53
+net-ssh -v 2.9.2
+rack-ssl -v 1.4.1
