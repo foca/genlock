@@ -2,6 +2,7 @@
 
 require "open-uri"
 require "erb"
+require "genlock"
 
 SPECS = Hash[Gem::Specification.latest_specs.map { |spec| [spec.name, spec] }]
 
