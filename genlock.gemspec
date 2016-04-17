@@ -17,4 +17,6 @@ Gem::Specification.new do |s|
     "lib/genlock.rb",
     "lib/genlock/version.rb",
   ]
+
+  s.executables << "genlock"
 end
