@@ -14,12 +14,15 @@ all: example/Gemfile example/Gemfile.lock $(GEMS)
 .PHONY: clean
 clean:
 	rm -f example/Gemfile*
-	rm pkg/*.gem
+	rm -f pkg/*.gem
 
 .PHONY: install
 install:
 	install -d $(PREFIX)/bin
 	install bin/genlock $(PREFIX)/bin
+
+.PHONY: example
+example: example/Gemfile example/Gemfile.lock
 
 example/Gemfile.lock: $(EXAMPLE_GEMS)
 	genlock $< > $@
