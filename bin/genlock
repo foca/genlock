@@ -4,7 +4,7 @@ require "open-uri"
 require "erb"
 require "genlock"
 
-SPECS = Hash[Gem::Specification.latest_specs.map { |spec| [spec.name, spec] }]
+SPECS = Hash[Gem::Specification.latest_specs(true).map { |spec| [spec.name, spec] }]
 
 def all_deps(name)
   deps = SPECS[name].runtime_dependencies
