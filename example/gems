@@ -13,3 +13,4 @@ nobi -v 0.0.1
 mandrill-api -v 1.0.53
 net-ssh -v 2.9.2
 rack-ssl -v 1.4.1
+asset_manifest -v 1.0.0.pre.rc3
